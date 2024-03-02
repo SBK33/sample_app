@@ -2,12 +2,14 @@ class ListsController < ApplicationController
   def new
     @list = List.new
   end
-  #上記のList.newと下記のList.newは別物？
-  #下記のList.newが新規作成したインスタンスの中身はどこに記述されている？ストロングパラメーターのところ？
+
   def create
-    list = List.new(list_params)
-    list.save
-    redirect_to list_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id)
+    else
+      render :new
+    end
   end
 
   def index
@@ -15,7 +17,7 @@ class ListsController < ApplicationController
   end
 
   def show
-    #インスタンス変数の名称がnewの中のものと同一だが、問題ないのか？インスタンス変数の内容はそのアクションの中でしか有効じゃないのか？上から処理していくから問題ないのか？
+    #インスタンス変数の名称がnewの中のものと同一だが、問題ないのか？→インスタンス変数の内容はそのアクションの中でしか有効じゃない
     @list = List.find(params[:id])
   end
 
