@@ -7,7 +7,7 @@ class ListsController < ApplicationController
   def create
     list = List.new(list_params)
     list.save
-    redirect_to '/top'
+    redirect_to list_path(list.id)
   end
 
   def index
@@ -15,6 +15,8 @@ class ListsController < ApplicationController
   end
 
   def show
+    #インスタンス変数の名称がnewの中のものと同一だが、問題ないのか？インスタンス変数の内容はそのアクションの中でしか有効じゃないのか？
+    @list = List.find(params[:id])
   end
 
   def edit
